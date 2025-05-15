@@ -15,26 +15,33 @@ const octokit = new Octokit({
 });
 
 async function getPullRequestDiff(pull_number: number) {
-  const { data } = await octokit.pulls.get({
-    owner: REPO_OWNER,
-    repo: REPO_NAME,
-    pull_number,
-    mediaType: { format: 'diff' },
-  });
-
-  const diffUrl = data.diff_url;
-  const diffResponse = await axios.get(diffUrl, {
-    headers: { Authorization: `token ${GITHUB_TOKEN}` },
-  });
-
-  console.log('DIFF_URL', diffUrl);
-  if (!diffUrl) {
-    throw new Error('Error:diffUrl is undefined');
-  }
-  return diffResponse.data;
+  console.log(1);
+  const response = await octokit.request(
+    'GET /repos/{owner}/{repo}/pulls/{pull_number}',
+    {
+      owner: REPO_OWNER,
+      repo: REPO_NAME,
+      pull_number,
+      headers: {
+        accept: 'application/vnd.github.v3.diff',
+      },
+    }
+  );
+  console.log(response.data);
+  return JSON.stringify(response.data) as string;
+}
+async function reviewCode(diff: string) {
+  const PROMPT = 'ACTION: Review the code in this diff. --- DIFF:' + diff;
+  return await callAI(PROMPT);
 }
 
-async function reviewWithOpenAI(diff: string) {
+async function documentCode(diff: string) {
+  const PROMPT =
+    'ACTION: Provide documentation the code in this diff. --- DIFF:' + diff;
+  return await callAI(PROMPT);
+}
+
+async function callAI(inputPrompt: string) {
   const response = await axios.post(
     'https://api.openai.com/v1/chat/completions',
     {
@@ -43,11 +50,11 @@ async function reviewWithOpenAI(diff: string) {
         {
           role: 'system',
           content:
-            'You are a senior software engineer reviewing a GitHub pull request. Identify bugs, code smells, and improvement suggestions based on the diff provided.',
+            'You are a senior software engineer reviewing a GitHub pull request. Identify bugs, code smells, documentation of code, improvement and suggestions based on the diff provided.',
         },
         {
           role: 'user',
-          content: `Here is the pull request diff:\n\n${diff}`,
+          content: inputPrompt,
         },
       ],
     },
@@ -63,8 +70,9 @@ async function reviewWithOpenAI(diff: string) {
 }
 
 async function main() {
-  const review = await getPullRequestDiff(78);
-  const response = await reviewWithOpenAI(review);
+  const review = await getPullRequestDiff(3);
+  const response = await documentCode(review);
+  console.log(response);
 }
 
 main();
