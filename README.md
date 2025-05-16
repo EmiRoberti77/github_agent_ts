@@ -30,15 +30,19 @@ Create a `.env` file in the project root with the following variables:
 
 ```env
 GITHUB_TOKEN=your_github_pat_token
+GITHUB_SECRET=your_github_secret_passed_in_the_webhook_header
 OPENAI_API_KEY=your_openai_api_key
+ANTHROPIC_API_KEY=your_anthropic_api_key
 REPO_OWNER=your_repo_owner
 REPO_NAME=your_repo_name
+
 ```
 
 ### Example:
 
 ```env
 GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxxx
+GITHUB_SECRET=CD6503A8-xxxx-4556-xxxxx-xxxxxxxxxx
 OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxx
 ANTHROPIC_API_KEY=sk-xxxxxxxxxxxxxxxxxxxx
 REPO_OWNER=EmiRoberti77
