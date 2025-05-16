@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { OPENAI_API_KEY } from '../../env';
-import { AIInterface } from './AIInterface';
+import { AI_INIT_SYSTEM_PROMPT, OPENAI_API_KEY } from '../../env.js';
+import { AIInterface } from './AIInterface.js';
 
 export class OpenAIHandler implements AIInterface {
   constructor() {}
@@ -13,8 +13,7 @@ export class OpenAIHandler implements AIInterface {
         messages: [
           {
             role: 'system',
-            content:
-              'You are a senior software engineer reviewing a GitHub pull request. Identify bugs, code smells, documentation of code, improvement and suggestions based on the diff provided.',
+            content: AI_INIT_SYSTEM_PROMPT,
           },
           {
             role: 'user',

@@ -40,6 +40,7 @@ REPO_NAME=your_repo_name
 ```env
 GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxxx
 OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxx
+ANTHROPIC_API_KEY=sk-xxxxxxxxxxxxxxxxxxxx
 REPO_OWNER=EmiRoberti77
 REPO_NAME=oaix_core_service
 ```

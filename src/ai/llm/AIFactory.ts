@@ -1,5 +1,5 @@
-import { AnthropicHandler } from './anthropic';
-import { OpenAIHandler } from './openai';
+import { AnthropicHandler } from './anthropic.js';
+import { OpenAIHandler } from './openai.js';
 
 export enum AI_INSTANCE {
   OPENAI = 'OPENAI',
