@@ -35,7 +35,10 @@ OPENAI_API_KEY=your_openai_api_key
 ANTHROPIC_API_KEY=your_anthropic_api_key
 REPO_OWNER=your_repo_owner
 REPO_NAME=your_repo_name
-
+JIRA_API_TOKEN=your_jira_account_token
+JIRA_BASE_URL=your_jira_base_domain
+JIRA_PROJECT_KEY=Project_you_want_to_connect_to
+JIRA_USER_EMAIL=email_you_used_to_create_account
 ```
 
 ### Example:
@@ -47,6 +50,9 @@ OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxx
 ANTHROPIC_API_KEY=sk-xxxxxxxxxxxxxxxxxxxx
 REPO_OWNER=EmiRoberti77
 REPO_NAME=oaix_core_service
+JIRA_API_TOKEN=ATAxxxxxxxxxxxxxxxxxxxx
+JIRA_PROJECT_KEY=xxxx
+JIRA_USER_EMAIL=xxxxx@xxx.com
 ```
 
 > **Note**:
