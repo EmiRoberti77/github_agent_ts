@@ -13,6 +13,7 @@ export const JIRA_API_TOKEN = process.env.JIRA_API_TOKEN!;
 export const JIRA_BASE_URL = process.env.JIRA_BASE_URL!;
 export const JIRA_PROJECT_KEY = process.env.JIRA_PROJECT_KEY!;
 export const JIRA_USER_EMAIL = process.env.JIRA_USER_EMAIL!;
+export const PORT = parseInt(process.env.PORT!);
 /**
  * System prompts
  */
