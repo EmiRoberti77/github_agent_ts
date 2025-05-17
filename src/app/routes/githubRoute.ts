@@ -21,7 +21,6 @@ githubRouter.post(PATH.push, (req: Request, res: Response): any => {
   const payload = JSON.parse(req.body.payload);
   const pushDetails = extractPushDetails(payload);
   console.log(JSON.stringify(pushDetails, null, 2));
-
   return res.status(200).json({
     success: true,
   });
@@ -29,7 +28,6 @@ githubRouter.post(PATH.push, (req: Request, res: Response): any => {
 
 function extractPushDetails(payload: any): PushModel {
   const headCommit = payload.head_commit;
-  console.log("headCommit", headCommit);
   const pushDetails: PushModel = {
     branch: payload.ref,
     headCommit: headCommit,
