@@ -79,17 +79,3 @@ export async function postJiraComment(issueKey: string, message: string) {
 
   console.log("Jira comment posted:", response.data);
 }
-
-// async function test() {
-//   const jira = new JiraHandler();
-//   const response = await jira.createJiraTicket(
-//     "oaix ticket",
-//     "this is a ticket craeted by oaix"
-//   );
-//   if (response === "_empty") {
-//     console.log("failed to create ticket");
-//   }
-//   //console.log(response);
-// }
-
-// test();
