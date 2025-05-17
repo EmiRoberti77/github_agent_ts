@@ -46,16 +46,50 @@ export class JiraHandler {
   }
 }
 
-async function test() {
-  const jira = new JiraHandler();
-  const response = await jira.createJiraTicket(
-    "oaix ticket",
-    "this is a ticket craeted by oaix"
-  );
-  if (response === "_empty") {
-    console.log("failed to create ticket");
-  }
-  //console.log(response);
+export async function postJiraComment(issueKey: string, message: string) {
+  const jiraApiUrl = `${JIRA_BASE_URL}/rest/api/3/issue/${issueKey}/comment`;
+  const jiraEmail = JIRA_USER_EMAIL;
+  const jiraApiToken = JIRA_API_TOKEN;
+
+  const payload = {
+    body: {
+      type: "doc",
+      version: 1,
+      content: [
+        {
+          type: "paragraph",
+          content: [
+            {
+              type: "text",
+              text: message,
+            },
+          ],
+        },
+      ],
+    },
+  };
+
+  const response = await axios.post(jiraApiUrl, payload, {
+    auth: { username: jiraEmail, password: jiraApiToken },
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+
+  console.log("Jira comment posted:", response.data);
 }
 
-test();
+// async function test() {
+//   const jira = new JiraHandler();
+//   const response = await jira.createJiraTicket(
+//     "oaix ticket",
+//     "this is a ticket craeted by oaix"
+//   );
+//   if (response === "_empty") {
+//     console.log("failed to create ticket");
+//   }
+//   //console.log(response);
+// }
+
+// test();
