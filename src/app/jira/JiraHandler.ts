@@ -5,11 +5,12 @@ import {
   JIRA_PROJECT_KEY,
   JIRA_USER_EMAIL,
 } from "../env.js";
+import { kind } from "openai/_shims/index.mjs";
 
 export class JiraHandler {
   constructor() {}
 
-  async createJiraTicket(title: string, description: string) {
+  async createJiraTicket(title: string, description: string): Promise<any> {
     const response = await axios.post(
       `${JIRA_BASE_URL}/rest/api/3/issue`,
       {
@@ -26,7 +27,7 @@ export class JiraHandler {
               },
             ],
           },
-          issuetype: { name: "Bug" },
+          issuetype: { id: "10001" },
         },
       },
       {
@@ -37,6 +38,24 @@ export class JiraHandler {
         },
       }
     );
-    return response.data.key;
+    if (response.status === 200 || response.status === 201) {
+      console.log("ticket created");
+      return response.data.key;
+    } else console.log(`ticket failed to created (status=${response.status})`);
+    return "_empty";
   }
 }
+
+async function test() {
+  const jira = new JiraHandler();
+  const response = await jira.createJiraTicket(
+    "oaix ticket",
+    "this is a ticket craeted by oaix"
+  );
+  if (response === "_empty") {
+    console.log("failed to create ticket");
+  }
+  //console.log(response);
+}
+
+test();
